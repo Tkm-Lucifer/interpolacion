@@ -1,0 +1,27 @@
+# problema2.py
+# Interpolación de Lagrange para el segundo ejercicio
+
+def lagrange(x_puntos, y_puntos, x_eval):
+    n = len(x_puntos)
+    resultado = 0.0
+    for i in range(n):
+        termino = y_puntos[i]
+        for j in range(n):
+            if i != j:
+                termino = termino * (x_eval - x_puntos[j]) / (x_puntos[i] - x_puntos[j])
+        resultado += termino
+    return resultado
+
+# Datos del segundo problema
+x_datos = [1, 4, 7]
+y_datos = [3, 24, 67]
+x_objetivo = 5
+
+# Cálculo y resultado
+y_final = lagrange(x_datos, y_datos, x_objetivo)
+
+print("=== Solución al Problema 2 ===")
+print(f"Puntos (x, y): {list(zip(x_datos, y_datos))}")
+print(f"Evaluando en x = {x_objetivo}")
+# Formateamos a 2 decimales para que coincida con lo que escribirías en la casilla
+print(f"Resultado: y = {y_final:.2f}")
