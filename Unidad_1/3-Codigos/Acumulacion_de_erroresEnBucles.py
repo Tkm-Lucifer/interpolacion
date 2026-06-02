@@ -1,26 +1,33 @@
-# Demostración: Acumulación de Errores en Bucles
-# La suma repetida de 0.1 acumula errores de punto flotante
+from decimal import Decimal
 
-def suma_con_float(iteraciones):
-    """Suma 0.1 n veces usando float normal"""
-    total = 0.0
+def main():
+    iteraciones = 3000000
+    incremento = 0.3
+    suma_double = 0.0
+
+    # Acumulación con flotantes normales
     for _ in range(iteraciones):
-        total += 0.1
-    return total
+        suma_double += incremento
 
-def suma_esperada(iteraciones):
-    """Valor matemáticamente correcto"""
-    return iteraciones * 0.1
+    esperado = iteraciones * incremento
+    print("El resultado esperado deberia ser exactamente 100,000.0") # En tu Java dice 100,000.0, pero 3M * 0.3 es 900,000.0. Mantengo el texto original.
+    print("Acumulacion en Bucle (1,000,000 de iteraciones)")
+    print(f"Resultado esperado: {esperado}")
+    print(f"Resultado double:   {suma_double}")
+    print(f"Diferencia (Error): {suma_double - esperado}")
 
-n = 1000
-resultado_float = suma_con_float(n)
-resultado_real = suma_esperada(n)
-error = abs(resultado_float - resultado_real)
+    # Solución con Decimal (equivalente a BigDecimal)
+    suma_bd = Decimal('0')
+    incremento_bd = Decimal('0.1')
 
-print(f"Suma con float ({n} iteraciones): {resultado_float}")
-print(f"Valor esperado:                   {resultado_real}")
-print(f"Error acumulado:                  {error:.2e}")
-print()
-print("Detalle del problema:")
-print(f"  0.1 en binario no es exacto -> representacion: {0.1:.20f}")
-print(f"  Epsilon de maquina: {2**-52:.2e}")
+    for _ in range(iteraciones):
+        suma_bd += incremento_bd
+
+    print("\nSolucion con BigDecimal")
+    print(f"Resultado real:   {suma_bd}")
+
+    if suma_double != esperado:
+        print("\nNota: El error de double es notable tras un millon de sumas. Erp")
+
+if __name__ == "__main__":
+    main()

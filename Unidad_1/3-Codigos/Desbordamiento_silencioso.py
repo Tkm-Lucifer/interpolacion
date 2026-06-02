@@ -1,20 +1,17 @@
-# Demostración: Desbordamiento Silencioso
-# En numpy/enteros de ancho fijo, el overflow ocurre sin aviso
+def main():
+    max_int = 2147483647 # Equivalente a Integer.MAX_VALUE en Java
+    resultado = max_int + 10000
+    
+    print(f"Maximo int: {max_int}")
+    print(f"Maximo + 10000: {resultado}") # En Python, esto suma perfectamente sin desbordarse.
+    
+    # Simulando el desbordamiento que capturaría Math.addExact
+    try:
+        suma_exacta = max_int + 10
+        if suma_exacta > 2147483647:
+            raise OverflowError("Error detectado: Desbordamiento Erp")
+    except OverflowError as e:
+        print(e)
 
-import numpy as np
-
-print("Desbordamiento en enteros de 8 bits (int8, rango: -128 a 127)")
-a = np.int8(120)
-b = np.int8(20)
-print(f"  120 + 20 = {a + b}  <- desbordamiento! el resultado correcto es 140")
-print()
-
-print("Desbordamiento en enteros de 16 bits (int16)")
-c = np.int16(32000)
-d = np.int16(1000)
-print(f"  32000 + 1000 = {c + d}  <- desbordamiento! el resultado correcto es 33000")
-print()
-
-print("Python nativo no desborda (enteros de precision arbitraria):")
-print(f"  120 + 20 = {120 + 20}  <- correcto")
-print(f"  32000 + 1000 = {32000 + 1000}  <- correcto")
+if __name__ == "__main__":
+    main()
