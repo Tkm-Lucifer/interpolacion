@@ -1,4 +1,4 @@
-# Métodos Numéricos - Lucifer
+# Métodos Numéricos
 
 Repositorio de la materia de **Métodos Numéricos**. Aquí se documentan las 6 unidades del curso con teoría, problemario y códigos en Python.
 
